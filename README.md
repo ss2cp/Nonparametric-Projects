@@ -70,12 +70,12 @@ The subgroup of data we will be using is extracted from the original “Adult”
 ###Any difference in Education Years (EducationNum) between Professional/Specialty and Executive Managerial?
 We suspect that people who work as executive managerial could acquire their knowledge from real life experience and other sources, not necessarily dependent on their years of education.  Education years may not be as important for executive managerial occupation as professional specialty. 
 
-We plan to use one-sided Wilcoxon Rank-Sum (WRS) Test for this case. WRS is a two-sample permutation test based on W, the sum of the ranks of the observations from one of the treatments. It simply ranks each observation after combing the groups together, finding all possible permutations of the ranks and calculates the p-value based on the permutation results of the probability of how many number of rank sums are greater than the observed rank sum. As for the hypothesis, the null hypothesis is that H0: F1(x) = F2(x), that people who work as professional specialty and executive manager have same distribution in terms of education years. The alternative hypothesis is that Ha: F1(x) ≠ F2(x), that these two groups of people with different occupation have different distributions of education years.
+We plan to use one-sided Wilcoxon Rank-Sum (WRS) Test for this case. WRS is a two-sample permutation test based on W, the sum of the ranks of the observations from one of the treatments. It simply ranks each observation after combing the groups together, finding all possible permutations of the ranks and calculates the p-value based on the permutation results of the probability of how many number of rank sums are greater than the observed rank sum. As for the hypothesis, the null hypothesis is that *H0: F1(x) = F2(x)*, that people who work as professional specialty and executive manager have same distribution in terms of education years. The alternative hypothesis is that *Ha: F1(x) ≠ F2(x)*, that these two groups of people with different occupation have different distributions of education years.
 
 However, WRS requires some assumptions, and the successful implementation of WRS depends on whether or not these assumptions are met. Firstly, the population distribution needs to depend on location and scale parameters. Secondly, the distribution is continuous. Thirdly, it has identical population distributions. Fourthly, it requires equal variances among groups. The first three assumptions are met here. In order to apply the WRS, we need to test the equal variances.
 
 Here we need to use the RMD to test for the deviances. We do not know the normality of the sample variances and we do not know the location parameters. We will use the sample medians instead of means to obtain the deviances for each group.
-The null hypothesis for RMD Test will be: H0: σ1 = σ2. It means that the professional speciality and executive manager have the equal variances in education number. The alternative hypothesis for RMD Test will be: Ha: max(σ1, σ2) / min(σ1, σ2) > 1. This is a two-sided RMD Test and we will use it to test if the variances for two treatments are different.
+The null hypothesis for RMD Test will be: *H0: σ1 = σ2*. It means that the professional speciality and executive manager have the equal variances in education number. The alternative hypothesis for RMD Test will be: *Ha: max(σ1, σ2) / min(σ1, σ2) > 1*. This is a two-sided RMD Test and we will use it to test if the variances for two treatments are different.
 
 ###Working Hours and Work Class
 We are interested in knowing if working hours per week differs among working classes. Since we have more than two treatments and we want to know if there is difference among these three treatments, we will use a Kruskal-Wallis test to test if at least one work class has different working hours than other classes.
@@ -85,10 +85,10 @@ Kruskal-Wallis Test is a nonparametric rank test that compares k treatments by r
 ###Working Hours and Education
 We anticipate that higher education lead to more working hours. We suspect that a higher education level will lead to better jobs, and better jobs will likely require more working hours. In this situation, we assume that people with bachelor degrees have longer working hours than those with some college degree than those with bachelor degree. We decide to use Jonchheere-Terpstra Test to test for an increasing trend. Under null hypothesis, the three different population distributions are the same. Therefore, we use a boxplot to check for equal variance cross these three groups before applying Jonchheere-Terpstra Test. 
 
-H0 : F1(x) = F2(x) = F3(x)
+*H0 : F1(x) = F2(x) = F3(x)*
 Our null hypothesis is that population distribution are the same for people with graduate education (HS-grad), some-college and bachelor degree. 
 
-Ha : F1(x) ≤ F2(x) ≤ F3(x)
+*Ha : F1(x) ≤ F2(x) ≤ F3(x)*
 Alternative hypothesis is that working hours increase with education levels.
 
 ###Correlation between Gender and Occupation
@@ -116,9 +116,10 @@ To determine if an association between two categorical variables exists, a chi-s
 ###The Effect of Education and Capital Gains on the Hours per Week for Working 
 
 We plan to use the regression to address this problem. Regressions are used when we want to find the scale effect of how variables can affect a dependent variable. In this case, we hope to see answers to two basic questions: (1) if people with higher education tend to work shorter and (2) if people with extra capital gains tend to affect their decisions of how long to work. 
+
 To be more specific, we plan to use the Bootstrapping Regression Method to address the problem. Bootstrapping is a nonparametric approach to statistical inference that substitutes computation for more traditional distributional assumptions and asymptotic results. As the simple multiple linear regression requires normal distribution for the data, we can not simply apply that to our analysis as the variables HoursPerWeek, EducationNum and CapitalGain are all skewed and not normally distributed due to our small data size and the nature of those data. The bootstrap can provide more accurate inferences when the data are not well behaved or when the sample size is small. It is also possible to apply the bootstrap to statistics with sampling distributions that are difficult to derive, even asymptotically.  Further, the bootstrap regression will provide us with a narrower confidence interval. 
 
-We are going to construct a bootstrap interval for the slope of the line for predicting HoursPerWeek from numbers of education and extra capital gains. We are performing the standard test of slope: H0 : β1 = β2 = 0 versus H1 : β1 ≠0, β2 ≠ 0.
+We are going to construct a bootstrap interval for the slope of the line for predicting HoursPerWeek from numbers of education and extra capital gains. We are performing the standard test of slope: *H0 : β1 = β2 = 0* versus *H1 : β1 ≠0, β2 ≠ 0*.
 
 ##Results from Tests and Applications
 
