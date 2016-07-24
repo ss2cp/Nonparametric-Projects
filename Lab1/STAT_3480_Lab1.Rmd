@@ -1,0 +1,200 @@
+---
+title: "STAT 3480 Lab1"
+author: "Shaoran Sun"
+date: "February 3, 2016"
+output: pdf_document
+---
+
+# The binomial test
+
+## Step 1
+
+$H_0$ : Smokers start smoking before the age of 18.
+
+$H_a$ : Smokers start smoking after the age of 18.
+
+Data has mean 16.55, standard deviation 4.006245. Applying one-sample t-test, $t=\frac{\bar{X}-\mu}{S}\sqrt{n}$. We get $t = -1.6186$, $p-value = 0.122$.
+The $p-value$ is 0.122, which is greater than 0.05. 
+\par
+Therefore, we fail to reject our null hepothesis and conclude that there is not enough evidence of smokers start smoking before the age of 18.
+
+## Step 2
+
+```{r}
+Smokeage = c(18,19,30,16,17,15,14,14,17,12,14,13,19,19,17,13,20,12,17,15)
+hist(Smokeage, main="Histogram for Smoke Age",  breaks=c(12, seq(15,30,3)),ylim=c(0,10))
+```
+
+The majority of people start to smoke before age 18. The assumption may not met because the graph is not normally distributed and the sample size is not large enough.
+
+## Step 3
+$Z_B=\frac{B-n(.5)}{\sqrt{n(.5)(1-.5)}}
+\newline
+=\frac{B-n(.5)}{\sqrt{n(.25)}}$
+\newline
+$=1.7889$
+\par
+$P_Z= 0.03681914$
+\par
+$H_0$ : Smokers start smoking before the age of 18.
+$H_a$ : Smokers start smoking after the age of 18.
+\par
+14 out of 20 data values are less than 18. After applying binomial test, we obtain $Z_B = 1.7889$ and $P_Z = 0.03682$. Thus, we can reject null hypothesis with 95% confidence interval.
+
+## Step 4
+Binomial is more accurate summarizing the data because as we can see from the data histogram, the data is very skewed to right, not normally distributed. Whereas binomial test does not need any assumption from the data, so that the data is more accurately described.
+
+# The binomial test in R
+## Step 5
+After putting in command provided, we get p-value of 0.03178
+
+##Step 6
+If we take infinite many samples from the poplulation, 95% of the time the true median is upper-bounded by 17.21.
+
+##Step 7
+With 99% confidence interval two-sided test, we get lower-bound at 13.8033, upper-bound at 19. Again, if we take infinite many samples within the population, 99% of the chance that the real median is within this interval.
+
+##Step 8
+With different alternative each time, the lower-bound is negative infinite with "less", and the upper-bound is positive infinite with "greater".
+\par
+$H_0$ : The median of smokers start smoking is 18.
+$H_a$ : The median of smokers start smoking is less then 18. The $p-value$ is \textbf{0.03178}.
+We fail to reject the null hypothesis at a .01 significance level, and conclude that there is not
+enough evidence to show that the mean of the smoke age is not less than 18.
+\par
+$H_0$ : The median of smokers start smoking is 18.
+$H_a$ : The median of smokers start smoking is greater then 18. The $p-value$ is \textbf{0.9904}.
+We reject the null hypothesis at a .01 significance level, and conclude that the mean of the smoke age is greater than 18.
+\par
+$H_0$ : The median of smokers start smoking is 18.
+$H_a$ : The median of smokers start smoking is not 18. The $p-value$ is \textbf{0.06357}.
+We fail to reject the null hypothesis at a .01 significance level, and conclude that there is not
+enough evidence to show that the mean of the smoke age is not equal to 18.
+##Step 9
+###Part 1
+```{r}
+library(BSDA)
+data.symm <- read.csv("~/Desktop/data.symm.txt", sep="")
+hist(data.symm$symm)
+```
+The shape of the histogram is nearly symmetric, therefore the median and mean are approximately the same.
+
+###Part 2
+With One Sample t-test, we have $p-value = 7.571e-06$. $H_0$ : The true mean of data is 8.
+$H_a$ : The true mean of data is greater than 8. With 95% confidence interval, we have (9.3509, $\infty$). We can reject the null hypothesis at 0.05 significant level, and conclude that the true mean of data is greater than 8.
+
+###Part 3
+With One Sample binomial-test, we have $p-value = 0.0004681$. $H_0$ : The true median of data is 8.
+$H_a$ : The true median of data is greater than 8. With 95% confidence interval, we have (9.2781, $\infty$). We can reject the null hypothesis at 0.05 significant level, and conclude that the true median of data is greater than 8.
+
+###Part 4
+Both tests give the same result that the true mean/median is greater than 8. Since the graph is symmetric, the true mean and median fall in the same point.
+
+##Step 10
+###Part 1
+```{r}
+data.skew <- read.csv("~/Desktop/data.skew.txt", sep="")
+hist(data.skew$skew)
+```
+The shape of the histogram is skewed to the right, therefore the median should be to the left of mean.
+
+###Part 2
+With One Sample t-test, we have $p-value = 0.0703$. $H_0$ : The true mean of data is 8.
+$H_a$ : The true mean of data is greater than 8. With 95% confidence interval, we have (7.7773, $\infty$). We fail to reject the null hypothesis at 0.05 significant level, and conclude that there is not
+enough evidence to show that the mean of the data is greater than 8.
+
+###Part 3
+With One Sample binomial-test, we have $p-value = 0.4439$. $H_0$ : The true median of data is 8.
+$H_a$ : The true median of data is greater than 8. With 95% confidence interval, we have (5.0228, $\infty$). We fail to reject the null hypothesis at 0.05 significant level, and conclude that there is not
+enough evidence to show that the mean of the data is greater than 8.
+
+###Part 4
+Both tests give the same result there is not
+enough evidence to show that the mean of the data is greater than 8. However, binomial test shows a stronger rejection with $p-value$ at 0.4439, comparing to $t$-test's result is almost at he edge of rejecting the null hypothesis.
+
+#Lab summary
+Based on the two test I applied to the data sample of 20 smokers and the age they started smoking. There are 14 out of 20 samples started smoking before the age of 18. The two tests are t-test and binomial test. T-test assumes a relatively large sample size, and data being normally distributed. Binomial test does not require any assumption of the sample size or data's distribution. 
+\par
+With t-test, we get $p-value$ of 0.122. $p-value$ is a statist that describe how likely the event happens. We make hypothesis that smokers start smoking before the age of 18. We usually consider 95% confident interval, which means that 95% of the chance, the population mean/median is within our desired range. In this case, 0.122 is larger than 0.05. Therefore, we do not have enough evidence to show that smokers start smoking before the age of 18. However, with binomial test, we get $p-value$ of 0.03178. This is smaller than our siginificant level of 0.05, and conclude that smokers start smoking before the age of 18. 
+\par
+Binomial test is a better choice for this dataset, because we do not require any assumption to the data. So that it is more accurate to use such test, and conclude that, indeed, smokers sart smoking before the age of 18.
+
+\newpage
+
+#Appendix
+
+##Step 1 Code
+```{r}
+smokeage = c(18,19,30,16,17,15,14,14,17,12,14,13,19,19,17,13,20,12,17,15)
+xbar <- mean(smokeage)
+s <- sd(smokeage)
+a <- 18
+n <- 20
+t <- (xbar-a)/(s/sqrt(n))
+t <- (16.55-18)/4.006254*sqrt(20)
+t #t value
+#t.test(smokeage,mu=18)
+2*pt(-abs(t),df=n-1) #p-value
+```
+
+##Step 2 Code
+```{r}
+Smokeage = c(18,19,30,16,17,15,14,14,17,12,14,13,19,19,17,13,20,12,17,15)
+hist(Smokeage, main="Histogram for Smoke Age",  breaks=c(12, seq(15,30,3)),ylim=c(0,10))
+```
+
+##Step 3 Code
+```{r}
+sum(smokeage<18)
+pnorm(-abs(4/sqrt(5)))
+```
+
+##Step 5 Code
+```{r}
+library(BSDA)
+SIGN.test(smokeage, md=18, alternative="less")
+```
+
+##Step 7 Code
+```{r}
+library(BSDA)
+SIGN.test(smokeage, md=18, alternative="two.sided", conf.level = .99)
+```
+
+##Step 8 Code
+```{r}
+SIGN.test(smokeage, md=18, alternative="greater", conf.level = .99)
+SIGN.test(smokeage, md=18, alternative="less", conf.level = .99)
+```
+##Step 9 Code
+###Part 1
+```{r}
+library(BSDA)
+data.symm <- read.csv("~/Desktop/data.symm.txt", sep="")
+hist(data.symm$symm)
+```
+###Part 2
+```{r}
+library(BSDA)
+t.test(data.symm$symm, mu = 8, alternative="greater")
+```
+###Part 3
+```{r}
+SIGN.test(data.symm$symm,md=8,alternative="greater",conf.level=.95)
+```
+##Step 10 Code
+###Part 1
+```{r}
+data.skew <- read.csv("~/Desktop/data.skew.txt", sep="")
+hist(data.skew$skew)
+```
+###Part 2
+```{r}
+
+t.test(data.skew$skew, mu = 8, alternative="greater")
+```
+###Part 3
+```{r}
+SIGN.test(data.skew$skew,md=8,alternative="greater",conf.level=.95)
+```
+

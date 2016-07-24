@@ -1,0 +1,196 @@
+---
+title: "STAT 3480 Lab6"
+author: "Shaoran Sun"
+date: "March 29, 2016"
+output: pdf_document
+---
+
+##1
+\begin{tabular}{l*{3}{c}r}
+group & ranks          & sample size & mean rank  \\
+\hline
+G     & 1              & 1           & 1  \\
+\hline
+PG    & {3, 5, 8}      & 3           & 5.333333   \\
+\hline 
+PG-13 & {2, 9, 10, 11} & 4           & 8   \\
+\hline
+R     & {4, 6, 7, 12}  & 4           & 7.25 \\
+\hline
+\end{tabular}
+
+KW = $\frac{12}{N(N+1)}\sum_{i=1}^{K} n_i ( \bar{R_i} - \frac{N+1}{2})$
+
+=$\frac{12}{12(12+1)}\sum_{i=1}^{K} n_i ( \bar{R_i} - \frac{12+1}{2})$
+
+=$\textbf{3.50641}$
+
+##2
+\begin{tabular}{l*{3}{c}r}
+group & ranks          & observed rank-sum & expected rank-sum  \\
+\hline
+G     & 1              & 1                 & 6.5  \\
+\hline
+PG    & {3, 5, 8}      & 16                & 19.5   \\
+\hline 
+PG-13 & {2, 9, 10, 11} & 32                & 26   \\
+\hline
+R     & {4, 6, 7, 12}  & 29                & 26 \\
+\hline
+\end{tabular}
+
+KW = $\frac{6}{N}\sum_{i=1}^{K} \frac{(obsRS_i - expRS_i)^2}{expRS_i}$
+
+=$\frac{6}{12}\sum_{i=1}^{K} \frac{(obsRS_i - expRS_i)^2}{expRS_i}$
+
+=$\textbf{3.50641}$
+
+Two method computed the same answer of $KW = 3.51$.
+
+##3
+\begin{tabular}{l*{3}{c}r} 
+group & ranks                    & sample size & mean rank  \\
+\hline  
+G     & 6.5                      & 1           & 6.5        \\
+\hline
+PG    & {1,2.5}                  & 2           & 1.166667   \\
+\hline 
+PG-13 & {2.5, 4, 6.5, 8, 10, 11} & 6           & 7          \\
+\hline
+R     & {5, 9, 12}               & 3           & 8.666667   \\
+\hline
+\end{tabular}
+
+KW = $\frac{12}{N(N+1)}\sum_{i=1}^{K} n_i ( \bar{R_i} - \frac{N+1}{2})$
+
+=$\frac{12}{12(12+1)}\sum_{i=1}^{K} n_i ( \bar{R_i} - \frac{12+1}{2})$
+
+=$\textbf{4.669}$
+
+$KW_{ties} = \frac{KW}{1-\frac{\sum_{j=1}^{g}(t_{j}^3-t_j)}{N^3-N}}$
+
+=$\frac{4.669}{1-\frac{\sum_{j=1}^{g}(t_{j}^3-t_j)}{12^3-12}}$
+
+=$\textbf{4.702}$
+
+##4
+$t_j$ are the counts of each duplicate element in the array. In total, there are 34 of them, in another words, there are 34 duplicate elements.
+
+##5
+We are calculating the p-value by sum(teststat >= teststat.obs)/1000 because we want to see if out of 1000 random shuffles, which ones have higher teststat than the observed teststat. 
+
+The number 1000 might change if we are looking for more or less runs of random shuffling.
+
+The greater or equal sign might change if other relations may cause being more extreme, such as less than, or not equal.
+
+##6
+After running the code, observed teststat is 19.671, $p$-value is 0. This is less than 0.05. Hence we reject null hypothesis at 0.05 siginificance level, and conclude that $F_i$(x) $\leq$ $F_j$ (x) or $F_i$(x) $\geq$ $F_j$ (x) for at least one pair (i, j), with strict inequality for at least one x.
+
+This is different with our exact test of result 0.008. Though both of the tests reject the null hypothesis, the sampling method is looking at $\frac{1}{3}$ of all the data. 
+
+##7
+The test statistic from the command is 19.671, with $p$-value of 0.000199. This is less than 0.05. Hence we reject null hypothesis at 0.05 siginificance level, and conclude that $F_i$(x) $\leq$ $F_j$ (x) or $F_i$(x) $\geq$ $F_j$ (x) for at least one pair (i, j), with strict inequality for at least one x.
+
+This result match up with the one in #6.
+
+##1
+The hypotheses for a Kruskal-Wallis test are the same as for a permutation F -test:
+$H_0$ : $F_1(x) = F_2(x) = ... = F_K(x)$
+$H_1$ : $F_i(x) \leq F_j (x)$ or $F_i(x) geq F_j (x)$ for at least one pair (i, j), with strict inequality for at least one
+
+The test statistic from the following command is 2.220, with $p$-value of 0.0508. This is greater than 0.05. Hence we fail to reject null hypothesis at 0.05 siginificance level, and conclude that there is not enough eveidence to show that $F_i$(x) $\leq$ $F_j$ (x) or $F_i$(x) $\geq$ $F_j$ (x) for at least one pair (i, j), with strict inequality for at least one x. 
+
+Under the context of the problem, the scores and the ratings are not related.
+
+```{r}
+moviesall <- read.delim("~/Desktop/moviesall.txt")
+attach(moviesall)
+data1 <- table(score)
+data1
+### calculate the observed KW statistic
+t.j = data1[data1>1]
+n.i = c(4, 21, 65, 50); N = sum(n.i)
+ranks = rank(score) ### rank the data
+R.i = c(mean(ranks[rating=="G"]), mean(ranks[rating=="PG"]), mean(ranks[rating=="PG-13"]),
+mean(ranks[rating=="R"]))
+KW.noties = 12/(N*(N+1)) * sum( n.i*(R.i - (N+1)/2)^2 )
+teststat.obs = KW.noties/( 1 - sum( t.j^3 - t.j )/(N^3 - N) )
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the rating labels for the movies
+ratingSHUFFLE = sample(rating)
+### compute the KW statistic for the shuffled data
+R.i = c(mean(ranks[ratingSHUFFLE=="G"]), mean(ranks[ratingSHUFFLE=="PG"]),
+mean(ranks[ratingSHUFFLE=="PG-13"]), mean(ranks[ratingSHUFFLE=="R"]))
+KW.noties = 12/(N*(N+1)) * sum( n.i*(R.i - (N+1)/2)^2 )
+teststat[i] = KW.noties/( 1 - sum( t.j^3 - t.j )/(N^3 - N) )
+}
+### calculate the approximate p-value
+sum(teststat >= teststat.obs)/10000
+teststat.obs
+```
+
+##2
+The hypotheses for a Kruskal-Wallis test are the same as for a permutation F -test:
+$H_0$ : $F_1(x) = F_2(x) = ... = F_K(x)$
+$H_1$ : $F_i(x) \leq F_j (x)$ or $F_i(x) geq F_j (x)$ for at least one pair (i, j), with strict inequality for at least one
+
+The test statistic from the following command is 6.822, with $p$-value of 0.07781. This is greater than 0.05. Hence we fail to reject null hypothesis at 0.05 siginificance level, and conclude that there is not enough eveidence to show that $F_i$(x) $\leq$ $F_j$ (x) or $F_i$(x) $\geq$ $F_j$ (x) for at least one pair (i, j), with strict inequality for at least one x. 
+
+Under the context of the problem, the box office gross and ratings are not related.
+
+```{r}
+kruskal.test(gross ~ rating)
+```
+
+#Appendix 
+##1
+```{r}
+(3+5+8)/3
+(2+9+10+11)/4
+(4+6+7+12)/4
+12/(12*13)*(1*(1-6.5)^2+3*(5.333333-6.5)^2+4*(8-6.5)^2+4*(7.25-6.5)^2)
+```
+
+##2
+```{r}
+6/12*((1-6.5)^2/6.5+(16-19.5)^2/19.5+(32-26)^2/26+(29-26)^2/26)
+```
+
+##3
+```{r}
+3.5/3
+(2.5+ 4+ 6.5+ 8+ 10+ 11)/6
+(5+9+12)/3
+12/(12*13)*(1*(6.5-6.5)^2+2*(1.166667-6.5)^2+6*(7-6.5)^2+3*(8.666667-6.5)^2)
+```
+
+##4
+```{r}
+moviesall <- read.delim("~/Desktop/moviesall.txt")
+attach(moviesall)
+table(runtime)
+### calculate the observed KW statistic
+t.j = c(2,6,3,3,2,3,5,2,3,4,5,3,3,5,4,5,4,3,6,2,3,4,3,3,3,4,5,3,2,3,2,2,2,3)
+n.i = c(4, 21, 65, 50); N = sum(n.i)
+ranks = rank(runtime) ### rank the data
+R.i = c(mean(ranks[rating=="G"]), mean(ranks[rating=="PG"]), mean(ranks[rating=="PG-13"]), mean(ranks[rating=="R"]))
+KW.noties = 12/(N*(N+1)) * sum( n.i*(R.i - (N+1)/2)^2 )
+teststat.obs = KW.noties/( 1 - sum( t.j^3 - t.j )/(N^3 - N) )
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the rating labels for the movies
+ratingSHUFFLE = sample(rating)
+### compute the KW statistic for the shuffled data
+R.i = c(mean(ranks[ratingSHUFFLE=="G"]), mean(ranks[ratingSHUFFLE=="PG"]), mean(ranks[ratingSHUFFLE=="PG-13"]), mean(ranks[ratingSHUFFLE=="R"]))
+KW.noties = 12/(N*(N+1)) * sum( n.i*(R.i - (N+1)/2)^2 )
+teststat[i] = KW.noties/( 1 - sum( t.j^3 - t.j )/(N^3 - N) )
+}
+### calculate the approximate p-value
+sum(teststat >= teststat.obs)/1000
+teststat.obs
+```
+
+```{r}
+kruskal.test(runtime ~ rating)
+```

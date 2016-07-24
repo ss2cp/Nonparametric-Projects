@@ -1,0 +1,164 @@
+---
+title: "Bootstrap Lab"
+author: "Shaoran Sun"
+date: "May 3, 2016"
+output: pdf_document
+---
+
+#Estimating a population mean
+
+##1
+The true mean of the population is \textbf{10}.
+
+The estimate from the sample is \textbf{10.08782}.
+
+It is NOT exactly correct, but very close.
+
+##2
+The standard deviation of the sample is \textbf{2.865351}.
+
+The estimate from #1 is within 2 of 2.865351 from the true mean.
+
+##3
+From the [histogram](#histogram) and the calculation, \textbf{95.1\%} of the time the sample mean is within 2 standard deviation of the true mean.
+
+##4
+The 95% confidence interval for the true population mean is \textbf{(8.6329, 10.92518)}, the true mean 10 is indeed within this interval.
+
+#The bootstrap
+##5
+The values in the sample from #1 are:
+
+12.283483  5.706046 11.856188 10.634344 15.336947  6.619884 12.313170  8.376584 12.408567 15.615882 12.277312  6.892050 10.494954  8.182230  7.245307 10.228124  8.320412  8.981784  4.659279 10.500860  6.711899  8.772800  7.221565 12.602552 10.233796
+
+The mean of the sample is \textbf{9.779041}.
+
+##6
+There are duplicates in the bootstrap sample.
+
+The mean is \textbf{9.424798}.
+
+##7
+From the second [histogram](#secondhistogram), the second one is more similar to normal, compared to the one in #3.
+
+
+##8
+The mean of bootmeans is \textbf{9.757891}, and the standard deviation is 0.5751015. Standard Error is \textbf{0.1150203} The 95% confidence interval is \textbf{(9.52785, 9.987932)}
+
+#A real example - backpack weights
+##9
+The sample size is 20.
+
+From the third [histogram](#thirdhistogram), it does not appear to be normally distributed. So we are NOT able to use the precedure in #4 to find a confidence interval.
+
+##10
+$SE(\bar{X}) = \frac{S}{\sqrt{n}}=\frac{8.47209}{\sqrt{20}} =1.894417$
+
+$SE(\bar{X})$ is 1.894417. Using bootstrap, the standard error is 1.867714. These two are very close.
+
+##11
+The mean of the sample is 13.25. With 95% confidence interval, we have the interval of (9.514572, 16.98543). 
+
+Using method in #4, we have the interval, with 95% confidence, (9.461166, 17.03883). 
+
+Method in #4 gives us a wider interval.
+
+#Lab Summary
+The 95% bootstrap interval is (9.514572, 16.98543). 
+95% of the chances that the true mean falls in this interval.
+
+The 95% confidence interval is (9.461166, 17.03883). 
+
+The two confidence interval is pretty close, the bootstrap interval is more narrow than the traditional confidence interval.
+
+\newpage
+
+#Appendix
+##1
+```{r}
+mysample = rnorm(25, 10, 3)
+mean(mysample)
+```
+
+##2
+```{r}
+mysample = rnorm(25, 10, 3)
+sd(mysample)
+```
+
+##Histogram
+```{r}
+samplemeans = rep(NA,1000)
+for (i in 1:1000) {
+mysample.i = rnorm(25, 10, 3)
+samplemeans[i] = mean(mysample.i)
+}
+hist(samplemeans)
+sum(samplemeans >= 10-2*3/sqrt(25) & samplemeans <= 10+2*3/sqrt(25))/1000
+```
+
+##4
+```{r}
+x.bar = mean(mysample) 
+s = sd(mysample)
+x.bar - 2*s/sqrt(25)
+x.bar + 2*s/sqrt(25)
+```
+
+##5
+```{r}
+mysample
+mean(mysample)
+```
+
+##6
+```{r}
+bootsample = sample(mysample, 25, replace=T)
+bootsample
+bootmean = mean(bootsample)
+bootmean
+```
+
+##SecondHistogram
+```{r}
+bootmeans = rep(NA, 1000)
+for (i in 1:1000) {
+bootsample = sample(mysample, 25, replace=T)
+bootmeans[i] = mean(bootsample)
+}
+hist(bootmeans)
+```
+
+##8
+```{r}
+sd(bootmeans)
+mean(bootmeans)
+```
+
+##ThirdHistogram
+```{r}
+backpacks <- read.csv("~/Desktop/3480 Lab/backpacks.txt", sep="")
+attach(backpacks)
+hist(backpacks$backpackWT)
+sd(backpackWT)
+```
+
+##10
+```{r}
+bootmeans = rep(NA, 1000)
+for (i in 1:1000) {
+bootsample = sample(backpackWT, 20, replace=T)
+bootmeans[i] = mean(bootsample)
+}
+sd(bootmeans)
+```
+
+##11
+```{r}
+mean(backpackWT)
+
+x.bar = mean(backpackWT) 
+s = sd(backpackWT)
+x.bar - 2*s/sqrt(20)
+x.bar + 2*s/sqrt(20)
+```

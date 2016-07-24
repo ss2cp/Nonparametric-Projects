@@ -1,0 +1,25 @@
+group	performance
+deprived	-10.7
+deprived	4.5
+deprived	2.2
+deprived	21.3
+deprived	-14.7
+deprived	-10.7
+deprived	9.6
+deprived	2.4
+deprived	21.8
+deprived	7.2
+deprived	10.0
+undeprived	25.2
+undeprived	14.5
+undeprived	-7.0
+undeprived	12.6
+undeprived	34.5
+undeprived	45.6
+undeprived	11.6
+undeprived	18.6
+undeprived	12.1
+undeprived	30.5
+
+
+

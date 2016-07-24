@@ -1,0 +1,326 @@
+---
+title: "STAT 3480 Lab7"
+author: "Shaoran Sun"
+date: "March 31, 2016"
+output: pdf_document
+---
+
+#Pairwise Comparisons
+##1
+We would have to consider 6 comparisons. 
+
+In general, for $K$ different groups, we will have to perform \emph{$\frac{(K-1)K}{2}$} pairwise comparisons.
+
+#Multiple Testing Problem
+##2
+$H_0$: The mean of the normal distribution is 10.
+
+$H_a$: The mean of the normal distribution is NOT 10.
+
+After performing a $t$-test on the data points, we have $p$-value equals to 0.6293, which is greater than 0.05. Hence, we fail to reject the null hyopthesis at 0.05 significance level, and conclude that there is not enough eveidence to show that the mean of the normal distribution is NOT 10. In another words, the mean is indeed 10.
+
+##3
+After running the code 20 times, there is one time that we can reject the null hypothesis at 0.05 significance level. This is acceptable, since with 20 tests and 0.05 significance level, we would expect to incorrectly reject the null hypothesis in 1 of these 20 tests.
+
+##4
+There are 51 times, which is 0.051 chance that we reject the null hypothesis that $\mu$ = 10.
+
+#Bonferroni Correction
+##5
+We would need a significance level of $\frac{0.05}{6} = 0.00833$.
+
+##6
+We would multiply the originial $p$-values by 6.
+
+##6
+After performing a permutation test, using a difference in means, to determine whether there is a differece in run times between \emph{G and PG} movies. We have the original $p$-value of 0.049, and the Bonferroni-adjusted $p$-value of \textbf{0.294}. 
+
+Based on the Bonferroni-adjusted $p$-value of 0.294, we fail to reject the null hypothesis at 0.05 significance level, and conclude that there is not enough evidence to show that there were differences in run times among the rating groups of \emph{G and PG}. 
+
+##7
+After performing a permutation test, using a difference in means, to determine whether there is a differece in run times between \emph{G and PG-13} movies. We have the original $p$-value of 0.043, and the Bonferroni-adjusted $p$-value of \textbf{0.258}. 
+
+Based on the Bonferroni-adjusted $p$-value of 0.258, we fail to reject the null hypothesis at 0.05 significance level, and conclude that there is not enough evidence to show that there were differences in run times among the rating groups of \emph{G and PG-13}. 
+
+##8
+After performing a permutation test, using a difference in means, to determine whether there is a differece in run times between \emph{G and R} movies. We have the original $p$-value of 0.007, and the Bonferroni-adjusted $p$-value of \textbf{0.042}. 
+
+Based on the Bonferroni-adjusted $p$-value of 0.042, we reject the null hypothesis at 0.05 significance level, and conclude that there were differences in run times among the rating groups of \emph{G and R}. 
+
+##9
+After performing a permutation test, using a difference in means, to determine whether there is a differece in run times between \emph{PG and PG-13} movies. We have the original $p$-value of 0.006, and the Bonferroni-adjusted $p$-value of \textbf{0.036}. 
+
+Based on the Bonferroni-adjusted $p$-value of 0.036, we reject the null hypothesis at 0.05 significance level, and conclude that there were differences in run times among the rating groups of \emph{PG and PG-13}. 
+
+##10
+After performing a permutation test, using a difference in means, to determine whether there is a differece in run times between \emph{PG and R} movies. We have the original $p$-value of 0.001, and the Bonferroni-adjusted $p$-value of \textbf{0.006}. 
+
+Based on the Bonferroni-adjusted $p$-value of 0.006, we reject the null hypothesis at 0.05 significance level, and conclude that there were differences in run times among the rating groups of \emph{PG and R}. 
+
+##11
+After performing a permutation test, using a difference in means, to determine whether there is a differece in run times between \emph{PG-13 and R} movies. We have the original $p$-value of 1.018, and the Bonferroni-adjusted $p$-value of \textbf{6.108}. 
+
+Based on the Bonferroni-adjusted $p$-value of 6.108, we fail to reject the null hypothesis at 0.05 significance level, and conclude there is not enough evidence to show that there were differences in run times among the rating groups of \emph{PG-13 and R}. 
+
+##12
+From the results of #6 through #11, (G and PG), (G and PG-13), and (PG-13 and R) do NOT show significant evidence of differences in run times.
+
+However, (G and R), (PG and PG-13), and (PG and R) do show significant evidence of differences in run times within each pair.
+
+#Lab Summary
+##1
+We first performed an overall test for differences between movie ratings and scores on $rottentomatoes.com$, using Kruskal-Wallis test, to test $H_0$: the scores of different ratings are identical populations, against $H_a$: the scores of different ratings are NOT identical populations. 
+
+We have a $p$-value of 0.528, which is greater than 0.05. Hence we fail to reject the null hypothesis at 0.05 siginificance level, and conclude that the scores of different ratings are identical populations. In another words, \emph{rating and scores} are \emph{not} correlated. 
+
+Secondly, we perform pairwise tests of each rating pair using the Wilcoxon rank-sum test and Bonferroni-adjusted $p$-values between movie ratings and scores on $rottentomatoes.com$, to test $H_0$: the \emph{pairwise} scores of different ratings are identical populations, against $H_a$: the \emph{pairwise} scores of different ratings are NOT identical populations. 
+
+We have Bonferroni-adjusted $p$-values of 1.020, 0.925, 0.962, 5.448, 5.190, and 5.260, which are all greater than 0.05. Hence we fail to reject the null hypothesis at 0.05 siginificance level, and conclude the \emph{same} conclusions that the scores of different ratings are identical populations. In another words, \emph{rating and scores} are \emph{not} correlated. 
+
+##2
+We first performed an overall test for differences between \emph{movie ratings and box office gross}, using Kruskal-Wallis test, to test $H_0$: the box office gross of different ratings are identical populations, against $H_a$: the box office gross of different ratings are NOT identical populations. 
+
+We have a $p$-value of 0.0778, which is greater than 0.05. Hence we fail to reject the null hypothesis at 0.05 siginificance level, and conclude that the box office gross of different ratings are identical populations. In another words, \emph{box office gross and scores} are \emph{not} correlated. 
+
+Secondly, we perform pairwise tests of each rating pair using the Wilcoxon rank-sum test and Bonferroni-adjusted $p$-values between movie ratings and box office gross, to test $H_0$: the \emph{pairwise} box office gross of different ratings are identical populations, against $H_a$: the \emph{pairwise} box office gross of different ratings are NOT identical populations. 
+
+We have Bonferroni-adjusted $p$-values of 3.853, 2.254, 0.905, 1.693, 0.216, and 0.462, which are all greater than 0.05. Hence we fail to reject the null hypothesis at 0.05 siginificance level, and conclude the \emph{same} conclusions that the box office gross of different ratings are identical populations. In another words, \emph{box office gross and scores} are \emph{not} correlated. 
+
+#Appendix
+#2
+```{r}
+data = rnorm(100, 10, 5)
+t.test(data, mu = 10, alternative = "two.sided")
+```
+
+##3
+```{r}
+replicate(
+  20,
+  {
+     data = rnorm(100, 10, 5)
+t.test(data, mu = 10, alternative = "two.sided")
+  }
+)
+```
+
+##4
+```{r}
+pval = rep(NA, 1000)
+for(i in 1:1000) {
+data = rnorm(100, 10, 5)
+pval[i] = t.test(data, mu = 10, alternative = "two.sided")$p.value
+}
+sum(pval < .05)
+sum(pval < .05)/1000
+```
+
+##6
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+movies.pair = moviesall[rating=="G" | rating=="PG",]
+detach(moviesall)
+attach(movies.pair)
+teststat.obs = mean(runtime[rating == "G"]) - mean(runtime[rating == "PG"])
+teststat.obs
+m = length(runtime[rating == "G"])
+n = length(runtime[rating == "PG"])
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the elements of the runtime vector
+runtimeSHUFFLE = sample(runtime)
+### assign the first m to the first group
+### and the next n to the other group
+G = runtimeSHUFFLE[1:m]
+PG = runtimeSHUFFLE[(m+1):(m+n)]
+### compute the test stat for the shuffled data
+teststat[i] = mean(G) - mean(PG)
+}
+### calculate the approximate p-value
+sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000
+teststat.obs
+((sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000))*6
+```
+
+##7
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+movies.pair = moviesall[rating=="G" | rating=="PG-13",]
+detach(moviesall)
+attach(movies.pair)
+teststat.obs = mean(runtime[rating == "G"]) - mean(runtime[rating == "PG-13"])
+teststat.obs
+m = length(runtime[rating == "G"])
+n = length(runtime[rating == "PG-13"])
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the elements of the runtime vector
+runtimeSHUFFLE = sample(runtime)
+### assign the first m to the first group
+### and the next n to the other group
+G = runtimeSHUFFLE[1:m]
+PG13 = runtimeSHUFFLE[(m+1):(m+n)]
+### compute the test stat for the shuffled data
+teststat[i] = mean(G) - mean(PG13)
+}
+### calculate the approximate p-value
+sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000
+teststat.obs
+((sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000))*6
+```
+
+##8
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+movies.pair = moviesall[rating=="G" | rating=="R",]
+detach(moviesall)
+attach(movies.pair)
+teststat.obs = mean(runtime[rating == "G"]) - mean(runtime[rating == "R"])
+teststat.obs
+m = length(runtime[rating == "G"])
+n = length(runtime[rating == "R"])
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the elements of the runtime vector
+runtimeSHUFFLE = sample(runtime)
+### assign the first m to the first group
+### and the next n to the other group
+G = runtimeSHUFFLE[1:m]
+R = runtimeSHUFFLE[(m+1):(m+n)]
+### compute the test stat for the shuffled data
+teststat[i] = mean(G) - mean(R)
+}
+### calculate the approximate p-value
+sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000
+teststat.obs
+((sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000))*6
+```
+
+##9
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+movies.pair = moviesall[rating=="PG" | rating=="PG-13",]
+detach(moviesall)
+attach(movies.pair)
+teststat.obs = mean(runtime[rating == "PG"]) - mean(runtime[rating == "PG-13"])
+teststat.obs
+m = length(runtime[rating == "PG"])
+n = length(runtime[rating == "PG-13"])
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the elements of the runtime vector
+runtimeSHUFFLE = sample(runtime)
+### assign the first m to the first group
+### and the next n to the other group
+PG = runtimeSHUFFLE[1:m]
+PG13 = runtimeSHUFFLE[(m+1):(m+n)]
+### compute the test stat for the shuffled data
+teststat[i] = mean(PG) - mean(PG13)
+}
+### calculate the approximate p-value
+sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000
+teststat.obs
+((sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000))*6
+```
+
+##10
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+movies.pair = moviesall[rating=="PG" | rating=="R",]
+detach(moviesall)
+attach(movies.pair)
+teststat.obs = mean(runtime[rating == "PG"]) - mean(runtime[rating == "R"])
+teststat.obs
+m = length(runtime[rating == "PG"])
+n = length(runtime[rating == "R"])
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the elements of the runtime vector
+runtimeSHUFFLE = sample(runtime)
+### assign the first m to the first group
+### and the next n to the other group
+PG = runtimeSHUFFLE[1:m]
+R = runtimeSHUFFLE[(m+1):(m+n)]
+### compute the test stat for the shuffled data
+teststat[i] = mean(PG) - mean(R)
+}
+### calculate the approximate p-value
+sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000
+teststat.obs
+((sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000))*6
+```
+
+##11
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+movies.pair = moviesall[rating=="PG-13" | rating=="R",]
+detach(moviesall)
+attach(movies.pair)
+teststat.obs = mean(runtime[rating == "PG-13"]) - mean(runtime[rating == "R"])
+teststat.obs
+m = length(runtime[rating == "PG-13"])
+n = length(runtime[rating == "R"])
+teststat = rep(NA, 1000)
+for(i in 1:1000) {
+### randomly "shuffle" the elements of the runtime vector
+runtimeSHUFFLE = sample(runtime)
+### assign the first m to the first group
+### and the next n to the other group
+PG13 = runtimeSHUFFLE[1:m]
+R = runtimeSHUFFLE[(m+1):(m+n)]
+### compute the test stat for the shuffled data
+teststat[i] = mean(PG13) - mean(R)
+}
+### calculate the approximate p-value
+sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000
+teststat.obs
+((sum(teststat <= teststat.obs)/1000 + sum(teststat >= -teststat.obs)/1000))*6
+```
+
+##1
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+kruskal.test(score ~ rating, data = moviesall)
+```
+
+```{r}
+wilcox.test(score[rating == "G"], score[rating == "PG"], correct=T)$p.value*6
+
+wilcox.test(score[rating == "G"], score[rating == "PG-13"], correct=T)$p.value*6
+
+wilcox.test(score[rating == "G"], score[rating == "R"], correct=T)$p.value*6
+
+wilcox.test(score[rating == "PG"], score[rating == "PG-13"], correct=T)$p.value*6
+
+wilcox.test(score[rating == "PG"], score[rating == "R"], correct=T)$p.value*6
+
+wilcox.test(score[rating == "PG-13"], score[rating == "R"], correct=T)$p.value*6
+```
+
+##2
+```{r}
+moviesall <- read.delim("~/Desktop/lab7/moviesall.txt")
+attach(moviesall)
+kruskal.test(gross ~ rating, data = moviesall) 
+```
+
+```{r}
+wilcox.test(gross[rating == "G"], gross[rating == "PG"], correct=T)$p.value*6
+
+wilcox.test(gross[rating == "G"], gross[rating == "PG-13"], correct=T)$p.value*6
+
+wilcox.test(gross[rating == "G"], gross[rating == "R"], correct=T)$p.value*6
+
+wilcox.test(gross[rating == "PG"], gross[rating == "PG-13"], correct=T)$p.value*6
+
+wilcox.test(gross[rating == "PG"], gross[rating == "R"], correct=T)$p.value*6
+
+wilcox.test(gross[rating == "PG-13"], gross[rating == "R"], correct=T)$p.value*6
+```

@@ -1,0 +1,298 @@
+---
+title: "STAT 3480 Lab2"
+author: "Shaoran Sun"
+date: "February 9, 2016"
+output: pdf_document
+---
+
+# A simple example
+
+## Step 1
+The seeded mean is 304.05, unseeded mean is 147.8. 
+
+The difference in mean between two groups is 156.25
+
+
+$H_0$ : There is no difference in rainfall between seeded and unseeded clouds.
+
+$H_a$ : There is difference in rainfall between seeded and unseeded clouds.
+
+## Step 2
+### D1 Seeded   D2 Seeded   D3 Unseeded
+### D1 Seeded   D2 Unseeded D3 Seeded
+### D1 Unseeded D2 Seeded   D3 Seeded
+
+There are in total 3 possible assignments would result in two seeded clouds and one unseeded cloud.
+
+## Step 3
+### D1 Seeded D2 Seeded D3 Unseeded
+199.45
+
+### D1 Seeded D2 Unseeded D3 Seeded
+-355.7
+
+### D1 Unseeded D2 Seeded D3 Seeded
+156.25
+
+The results are: 199.45, -355.7, 156.25
+
+## Step 4
+Out of the three diferences, 2 of them are as or more extreme than 156.25. 
+
+$p$-value = 2/3 = 0.667
+
+# A larger example
+## Step 5
+After putting in command provided, we get difference in means of 697.6583.
+
+##Step 6
+There are 210 different assigments of seeded/unseeded possible.
+
+##Step 7
+```{r, include=FALSE}
+cloudseeding = read.csv("~/Desktop/clouseeding.txt", sep="",header=T)
+rainfall = cloudseeding$rainfall
+treatment = cloudseeding$treatment
+teststat.obs = mean(rainfall[treatment == "seeded"]) - mean(rainfall[treatment == "unseeded"])
+teststat.obs
+```
+
+```{r}
+library(gtools)
+unseeded = combinations(10, 4, v=rainfall, set=FALSE, repeats.allowed=FALSE)
+unseeded
+```
+
+##Step 8
+```{r}
+seeded = NULL
+for(i in 1:210) {
+seeded = rbind(seeded, setdiff(rainfall, unseeded[i,]))
+}
+
+teststat = rep(NA, 210)
+for(i in 1:210) {
+teststat[i] = mean(seeded[i,]) - mean(unseeded[i,])
+}
+```
+
+##Step 9
+
+Out of the 210 permutations, 8 of them are as or more extreme than our teststat 697.6583. 
+
+$p$-value = 8/210 = 0.0381
+
+We can reject our null hypothesis with 0.05 significance level, and conclude that there is difference in rainfall between seeded and unseeded clouds.
+
+##Step 10
+The teststat median is 311.5.
+
+Out of the 210 permutations, 9 of them are as or more extreme than our teststat 311.5. 
+
+$p$-value = 9/210 = 0.0429
+
+We can reject our null hypothesis with 0.05 significance level, and conclude that there is difference in rainfall between seeded and unseeded clouds.
+
+##Step 11
+The teststat sum, which is the seeded sum, is 4590.8.
+
+Out of the 210 permutations, 8 of them are as or more extreme than our teststat 4590.8. 
+
+$p$-value = 8/210 = 0.0381
+
+We can reject our null hypothesis with 0.05 significance level, and conclude that there is difference in rainfall between seeded and unseeded clouds.
+
+##Step 12
+The teststat, which is the unseeded maxima, is 147.8.
+
+Out of the 210 permutations, 15 of them are as or more extreme than our teststat 147.8. 
+
+$p$-value = 15/210 = 0.0714
+
+We fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that there is difference in rainfall between seeded and unseeded clouds.
+
+#Lab summary
+
+##Part 1
+The null hypothesis is that there is no different in rainfall between seeded and unseeded clouds. In order to test the hypothesis, we used permutation test on ten data samples. 
+
+We used 4 different test statistics, difference in mean, difference in median, sum of the seended group, and maximum observation in the unseeded group. 
+
+The first three tests all rejects the null hypothesis, and suggest that \textbf{there is difference in rainfall between seeded and unseeded clouds}. 
+
+The last test, however, with maximum observation in the unseeded group being the test statistic, fail to reject the null hypothesis, and suggests that there is not enough evidence to show that there is difference in rainfall between seeded and unseeded clouds.
+
+The two main reasons that the last test suggests differently are that the maximum of the unseeded group is not a good representative of the sample data, and it is not showing the relationship between the two groups. 
+
+The maximum cannot represent that specific group (in our case, the unseeded group). An outlier of the group is highly possible to become the test statistic for each permutation. While the other three test statistic consider the overall sample pattern, like the mean, the median, and the sum of the group. 
+
+The maximum of the unseeded group only considers one of the two groups. We should use some relationships between the two samples, like the difference of the maximum of two groups, since we are doing a two-sample test. Two of the other tests used the difference, which is a better estimate. 
+
+
+##Part 2
+For 52 samples with 26 in each group, we would have 4.959185e14 permutations. To calculate any test statistic with 4.959185e14 samples would be a significant amount of work to do, even for computers. Thus, a permutation test should be performed on a relatively small sample-size data, when permutations can provide more insights/samples on the data.
+
+
+\newpage
+
+#Appendix
+
+##Step 1 Code
+```{r}
+unseeded = c(147.8)
+seeded = c(489.1,119.0)
+aveseeded <- mean(seeded)
+aveunseeded <- mean(unseeded)
+aveseeded-aveunseeded
+
+
+```
+
+##Step 2 Code
+```{r}
+#None
+```
+
+##Step 3 Code
+```{r}
+a<-(147.8+489.1)/2-119.0
+a
+b<-(147.8+119.0)/2 - 489.1
+b
+c<-(119.0+489.1)/2-147.8
+c
+```
+
+##Step 5 Code
+```{r}
+cloudseeding = read.csv("~/Desktop/clouseeding.txt", sep="",header=T)
+rainfall = cloudseeding$rainfall
+treatment = cloudseeding$treatment
+teststat.obs = mean(rainfall[treatment == "seeded"]) - mean(rainfall[treatment == "unseeded"])
+teststat.obs
+
+```
+
+##Step 6 Code
+```{r}
+choose(10,6)
+```
+
+##Step 7 Code
+```{r}
+library(gtools)
+unseeded = combinations(10, 4, v=rainfall, set=FALSE, repeats.allowed=FALSE)
+unseeded
+```
+
+##Step 8 Code
+```{r}
+seeded = NULL
+for(i in 1:210) {
+seeded = rbind(seeded, setdiff(rainfall, unseeded[i,]))
+}
+
+teststat = rep(NA, 210)
+for(i in 1:210) {
+teststat[i] = mean(seeded[i,]) - mean(unseeded[i,])
+}
+```
+
+##Step 9 Code
+```{r}
+teststat >= teststat.obs
+sum(teststat >= teststat.obs)
+sum(teststat >= teststat.obs)/210
+```
+
+##Step 10 Code
+```{r}
+cloudseeding = read.csv("~/Desktop/clouseeding.txt", sep="",header=T)
+rainfall = cloudseeding$rainfall
+treatment = cloudseeding$treatment
+teststat.obs = median(rainfall[treatment == "seeded"]) - median(rainfall[treatment == "unseeded"])
+teststat.obs
+
+choose(10,6)
+
+library(gtools)
+unseeded = combinations(10, 4, v=rainfall, set=FALSE, repeats.allowed=FALSE)
+unseeded
+
+seeded = NULL
+for(i in 1:210) {
+seeded = rbind(seeded, setdiff(rainfall, unseeded[i,]))
+}
+
+teststat = rep(NA, 210)
+for(i in 1:210) {
+teststat[i] = median(seeded[i,]) - median(unseeded[i,])
+}
+
+teststat >= teststat.obs
+sum(teststat >= teststat.obs)
+sum(teststat >= teststat.obs)/210
+```
+
+##Step 11 Code
+```{r}
+cloudseeding = read.csv("~/Desktop/clouseeding.txt", sep="",header=T)
+rainfall = cloudseeding$rainfall
+treatment = cloudseeding$treatment
+teststat.obs = sum(rainfall[treatment == "seeded"])
+teststat.obs
+
+choose(10,6)
+
+library(gtools)
+unseeded = combinations(10, 4, v=rainfall, set=FALSE, repeats.allowed=FALSE)
+unseeded
+
+seeded = NULL
+for(i in 1:210) {
+seeded = rbind(seeded, setdiff(rainfall, unseeded[i,]))
+}
+
+teststat = rep(NA, 210)
+for(i in 1:210) {
+teststat[i] = sum(seeded[i,])
+}
+
+teststat >= teststat.obs
+sum(teststat >= teststat.obs)
+sum(teststat >= teststat.obs)/210
+```
+
+##Step 12 Code
+```{r}
+cloudseeding = read.csv("~/Desktop/clouseeding.txt", sep="",header=T)
+rainfall = cloudseeding$rainfall
+treatment = cloudseeding$treatment
+teststat.obs = max(rainfall[treatment == "unseeded"],na.rm=TRUE)
+teststat.obs
+
+choose(10,6)
+
+library(gtools)
+unseeded = combinations(10, 4, v=rainfall, set=FALSE, repeats.allowed=FALSE)
+unseeded
+
+seeded = NULL
+for(i in 1:210) {
+seeded = rbind(seeded, setdiff(rainfall, unseeded[i,]))
+}
+
+teststat = rep(NA, 210)
+for(i in 1:210) {
+teststat[i] = max(unseeded[i,],na.rm=TRUE)
+teststat
+}
+
+teststat <= teststat.obs
+sum(teststat <= teststat.obs)
+sum(teststat <= teststat.obs)/210
+```
+##Lab Summary Code
+```{r}
+choose(52,26)
+```

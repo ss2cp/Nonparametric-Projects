@@ -1,0 +1,297 @@
+---
+title: "STAT 3480 Lab3"
+author: "Shaoran Sun"
+date: "February 11, 2016"
+output: pdf_document
+---
+
+# A simple example
+
+## Step 1
+\begin{tabular}{l|*{5}{c}r}
+$Ranks$            & 1 & 2 & 3 & 4 & 5  \\
+\hline
+$Data$             & -10.7 & 7.2 & 11.6 & 21.8 & 25.2  \\
+\hline
+$Group$            & deprived & deprived & undeprived & deprived & undeprived  \\
+\end{tabular}
+
+$W_{obs}$ = 1+2+4 = 7
+
+## Step 2
+
+There are total of 10 combinations:
+
+\begin{tabular}{l*{2}{c}r}
+\hline
+deprived & undeprived \\
+\hline
+1 2 3 & 4 5\\
+1 2 4 & 3 5\\
+1 2 5 & 3 4\\
+1 3 4 & 2 5\\
+1 3 5 & 2 4\\
+1 4 5 & 2 3\\
+2 3 4 & 1 5\\
+2 3 5 & 1 4\\
+2 4 5 & 1 3\\
+3 4 5 & 1 2\\
+\hline
+\end{tabular}
+
+## Step 3
+
+\begin{tabular}{l*{3}{c}r}
+\hline
+deprived & undeprived & $W$\\
+\hline
+1 2 3 & 4 5 & 6\\
+1 2 4 & 3 5 & 7\\
+1 2 5 & 3 4 & 8\\
+1 3 4 & 2 5 & 8\\
+1 3 5 & 2 4 & 9\\
+1 4 5 & 2 3 & 10\\
+2 3 4 & 1 5 & 9\\
+2 3 5 & 1 4 & 10\\
+2 4 5 & 1 3 & 11\\
+3 4 5 & 1 2 & 12\\
+\hline
+\end{tabular}
+
+## Step 4
+There are 2 cases where the test statistic is as or more extreme than the observed data, 7. 
+
+Therefore, $p-value$ = 2/10 = 0.2
+
+## Step 5
+$H_0$ : Sleep deprived group performs the same with the undeprived group on visual learning.
+
+$H_a$ : Sleep deprived group performs worse than the undeprived group on visual learning.
+
+Since our $p-value$ is 0.2, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs the same with the undeprived group on visual learning.
+
+##Step 6
+$H_0$ : Sleep deprived group performs the same with the undeprived group on visual learning.
+
+$H_a$ : Sleep deprived group performs differently than the undeprived group on visual learning.
+
+$p-value$ = 1/10 = 0.1
+
+Since our $p-value$ is 0.1, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs differently than the undeprived group on visual learning.
+
+# Using R
+##Step 7
+Here it uses ranks, instead of absolute value.
+
+There is an extra line of 
+```{r}
+W = rep(NA, choose(5,3))
+```
+This line just replicate 10 values of NA.
+
+The key part of the test remains the same:
+```{r,include=FALSE}
+library(gtools)
+
+performance = c(7.2,-10.7,21.8,25.2,11.6)
+group = c("deprived","deprived","deprived","undeprived","undeprived")
+
+ranks = rank(performance) ### calculates the ranks of the data
+
+W.obs = sum(ranks[group=="deprived"])
+
+```
+```{r}
+deprived.ranks = combinations(5, 3, v=ranks, set=FALSE, repeats.allowed=FALSE)
+```
+
+##Step 8
+$H_0$ : Sleep deprived group performs the same with the undeprived group on visual learning.
+
+$H_a$ : Sleep deprived group performs worse than the undeprived group on visual learning.
+
+Since our $p-value$ is 0.2, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs the same with the undeprived group on visual learning.
+
+##Step 9
+$H_0$ : Sleep deprived group performs the same with the undeprived group on visual learning.
+
+$H_a$ : Sleep deprived group performs differently than the undeprived group on visual learning.
+
+$p-value$ = 1/10 = 0.1
+
+Since our $p-value$ is 0.1, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs the same with the undeprived group on visual.
+
+# Dealing with ties
+##Step 10
+Out of the 7 data points, there are 2 data of 12, 3 data of 26. The two 12 data are the lowest two, their share the average of rank 1 and 2, which is (1+2)/2=1.5. 26 is the max of the dataset. There are three 26 out of the data, their rank is the average of the three, (5+6+7)/3=6.
+
+##Step 11
+$H_0$ : Sleep deprived group performs the same with the undeprived group on visual learning.
+
+$H_a$ : Sleep deprived group performs worse than the undeprived group on visual learning.
+
+Since our $p-value$ is 0.00389, we can reject our null hypothesis with 0.05 significance level, and conclude that sleep deprived group performs worse than the undeprived group on visual learning.
+
+##Step 12
+$H_0$ : Sleep deprived group performs the same with the undeprived group on visual learning.
+
+$H_a$ : Sleep deprived group performs better than the undeprived group on visual learning.
+
+Since our $p-value$ is 0.997, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs better than the undeprived group on visual.
+
+##Step 13
+$H_0$ : Sleep deprived group performs the same with the undeprived group on visual learning.
+
+$H_a$ : Sleep deprived group performs differently than the undeprived group on visual learning.
+
+Since our $p-value$ is 0.999, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs the same with the undeprived group on visual.
+
+#Lab summary
+
+##Part 1
+From the results of 11, our $p-value$ is 0.00389. We can reject our null hypothesis with 0.05 significance level, and conclude that sleep deprived group performs worse than the undeprived group on visual learning.
+
+For 12, since our $p-value$ is 0.997, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs better than the undeprived group on visual.
+
+For 13, since our $p-value$ is 0.999, we fail to reject our null hypothesis with 0.05 significance level, and conclude that there is not enough evidence to show that sleep deprived group performs the same with the undeprived group on visual.
+
+From the three test results, they reconcile. In 11, we rejected the null hypothesis of "sleep deprived group performs the same with the undeprived group on visual learning", and showed that sleep deprived group performs worse than the undeprived group on visual learning. In the other two, we both set the alternate hypothesis as the opposite of the one in 11, and failed to reject the null hypothesis, which shows there is not enough eveidence that the alternatives are true. Thus, we can conclude that sleep deprivation has a harmful effect on visual learning, and three results reconcile.
+
+##Part 2
+Because choose (21, 11) has the same result with choose(21, 10). The sum of one side equals to the total sum substracts the sum of the other side. With the proper opposite hypothesis, the test results are also the opposite to each other, which leads to the same conclusion.
+
+\newpage
+
+#Appendix
+
+##Step 1 Code
+```{r}
+
+```
+
+##Step 2 Code
+```{r}
+
+```
+
+##Step 3 Code
+```{r}
+
+```
+
+##Step 5 Code
+```{r}
+
+```
+
+##Step 6 Code
+```{r}
+
+```
+
+##Step 7 Code
+```{r}
+
+```
+
+##Step 8 Code
+```{r}
+library(gtools)
+
+performance = c(7.2,-10.7,21.8,25.2,11.6)
+group = c("deprived","deprived","deprived","undeprived","undeprived")
+
+ranks = rank(performance) ### calculates the ranks of the data
+
+W.obs = sum(ranks[group=="deprived"])
+
+deprived.ranks = combinations(5, 3, v=ranks, set=FALSE, repeats.allowed=FALSE)
+
+W = rep(NA, choose(5,3))
+for(i in 1:choose(5,3)) {
+W[i] = sum(deprived.ranks[i,])
+}
+
+sum(W <= W.obs)/choose(5,3)
+```
+
+##Step 9 Code
+```{r}
+library(gtools)
+
+performance = c(7.2,-10.7,21.8,25.2,11.6)
+group = c("deprived","deprived","deprived","undeprived","undeprived")
+
+ranks = rank(performance) ### calculates the ranks of the data
+
+W.obs = sum(ranks[group=="deprived"])
+
+deprived.ranks = combinations(5, 3, v=ranks, set=FALSE, repeats.allowed=FALSE)
+
+W = rep(NA, choose(5,3))
+for(i in 1:choose(5,3)) {
+W[i] = sum(deprived.ranks[i,])
+}
+
+sum(W == W.obs)/choose(5,3)
+```
+
+##Step 10 Code
+```{r}
+performance = c(26,18,16,12,26,12,26)
+rank(performance)
+```
+
+##Step 11 Code
+```{r}
+sleepdep <- read.delim("~/Desktop/sleepdep.txt")
+ranks = rank(sleepdep$performance) ### calculates the ranks of the data
+
+W.obs = sum(ranks[sleepdep$group=="deprived"])
+
+deprived.ranks = combinations(21, 11, v=ranks, set=FALSE, repeats.allowed=FALSE)
+
+W = rep(NA, choose(21,11))
+for(i in 1:choose(21,11)) {
+W[i] = sum(deprived.ranks[i,])
+}
+
+sum(W <= W.obs)/choose(21,11)
+```
+
+##Step 12 Code
+```{r}
+sleepdep <- read.delim("~/Desktop/sleepdep.txt")
+ranks = rank(sleepdep$performance) ### calculates the ranks of the data
+
+W.obs = sum(ranks[sleepdep$group=="deprived"])
+
+deprived.ranks = combinations(21, 11, v=ranks, set=FALSE, repeats.allowed=FALSE)
+
+W = rep(NA, choose(21,11))
+for(i in 1:choose(21,11)) {
+W[i] = sum(deprived.ranks[i,])
+}
+
+sum(W >= W.obs)/choose(21,11)
+```
+
+##Step 13 Code
+```{r}
+sleepdep <- read.delim("~/Desktop/sleepdep.txt")
+ranks = rank(sleepdep$performance) ### calculates the ranks of the data
+
+W.obs = sum(ranks[sleepdep$group=="deprived"])
+
+deprived.ranks = combinations(21, 11, v=ranks, set=FALSE, repeats.allowed=FALSE)
+
+W = rep(NA, choose(21,11))
+for(i in 1:choose(21,11)) {
+W[i] = sum(deprived.ranks[i,])
+}
+
+sum(W != W.obs)/choose(21,11)
+```
+##Lab Summary Code
+
+```

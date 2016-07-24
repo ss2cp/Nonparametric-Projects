@@ -1,0 +1,11 @@
+rainfall treatment
+147.8 unseeded
+26.1 unseeded
+95.0 unseeded
+1.0 unseeded
+4.1 seeded
+119.0 seeded
+489.1 seeded
+978.0 seeded
+255.0 seeded
+2745.6 seeded
