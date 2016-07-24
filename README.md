@@ -1,11 +1,10 @@
-# nonparametric-project
+# Nonparametric-project
 
 ##Background
 
 **Another one of my Machine Learning projects predicting people's annual income using Java also applies the same dataset can be found here:* [MachineLearning-NaiveBayesClassifier](https://github.com/ss2cp/MachineLearning-NaiveBayesClassifier)
 
-
-This project is to study the influence of people’s education level on their occupation.
+This project is to study the influence of education level on occupation on people of age 70.
 
 **Data:** 
 
@@ -49,6 +48,16 @@ due to the special background of this group.*
 19  70         Local-gov  88638       Masters           14       Never-married     Prof-specialty       Unmarried               White  Female        7896           0           50  United-States       >50K
 20  70           Private 145419       HS-grad            9             Widowed       Adm-clerical       Unmarried               White  Female           0           0            5  United-States      <=50K
 ```
+
+##Analysis methods
+* One-sided Wilcoxon Rank-Sum (WRS) Test
+* Two-sided RMD Test to test for equal variance
+* Kruskal-Wallis Test
+* Jonchheere-Terpstra Test
+* Permutation Chi-square Test
+* Bootstrap Regression
+
+**Criteria for statistical significance is P<0.05.*
 
 ## Parametric versus Nonparametric Methods
 Whereas parametric tests make assumptions about the population distribution, nonparametric tests require minimal assumptions about the population distribution. The specific form of our data’s distribution is unknown and we do not have enough evidence to make strong assumptions such as population normality. Also our dataset contains a number of categorical variables of both types: ordinal and nominal. Thus nonparametric is more applicable and should yield more reliable results compared to student t-test and other parametric tests.
