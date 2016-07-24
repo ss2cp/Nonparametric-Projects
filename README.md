@@ -1,4 +1,4 @@
-# Nonparametric-project
+# Nonparametric Project
 
 ##Background
 
