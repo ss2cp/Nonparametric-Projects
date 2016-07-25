@@ -1,3 +1,6 @@
+\**A Machine Learning java project predicting people's annual income with the* **same dataset** *can be found here:* [MachineLearning-NaiveBayesClassifier](https://github.com/ss2cp/MachineLearning-NaiveBayesClassifier)
+
+# Contents
 *This folder contains 9 nonparametrics projects/labs:*
 
 * Lab 1 - The Binomial Test
@@ -17,8 +20,6 @@
 # Nonparametric Project
 
 ##Background
-
-\**A Machine Learning java project predicting people's annual income with the* **same dataset** *can be found here:* [MachineLearning-NaiveBayesClassifier](https://github.com/ss2cp/MachineLearning-NaiveBayesClassifier)
 
 This project is to study the influence of education level on occupation on people of age 70.
 
