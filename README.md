@@ -77,7 +77,7 @@ due to the special background of this group.
 **Criteria for statistical significance is P<0.05.*
 
 ## Parametric versus Nonparametric Methods
-Whereas parametric tests make assumptions about the population distribution, nonparametric tests require minimal assumptions about the population distribution. The specific form of our data’s distribution is unknown and we do not have enough evidence to make strong assumptions such as population normality. Also our dataset contains a number of categorical variables of both types: ordinal and nominal. Thus nonparametric is more applicable and should yield more reliable results compared to student t-test and other parametric tests.
+Whereas parametric tests make assumptions about the population distribution, nonparametric tests require minimal assumptions about the population distribution. The specific form of our data’s distribution is unknown and we do not have enough evidence to make strong assumptions, such as population normality. Our dataset contains a number of categorical variables of both types: ordinal and nominal. Thus nonparametric is more applicable and should yield more reliable results compared to student t-test and other parametric tests.
 
 ##Summary Statistic
 The subgroup of data we will be using is extracted from the original “Adult” dataset, and all the observations extracted share a common value of 70 for the Age variable. The new dataset contains 89 observations for each of the original 13 variables, 5 of which are continuous.
@@ -85,8 +85,10 @@ The subgroup of data we will be using is extracted from the original “Adult”
 ##Statistical Tests and Analytical Methodologies
 
 ###Any difference in Education Years (EducationNum) between Professional/Specialty and Executive Managerial?
+####Motivation
 We suspect that people who work as executive managerial could acquire their knowledge from real life experience and other sources, not necessarily dependent on their years of education.  Education years may not be as important for executive managerial occupation as professional specialty. 
 
+####Methodology and Assumptions
 We plan to use one-sided Wilcoxon Rank-Sum (WRS) Test for this case. WRS is a two-sample permutation test based on W, the sum of the ranks of the observations from one of the treatments. It simply ranks each observation after combing the groups together, finding all possible permutations of the ranks and calculates the p-value based on the permutation results of the probability of how many number of rank sums are greater than the observed rank sum. As for the hypothesis, the null hypothesis is that *H0: F1(x) = F2(x)*, that people who work as professional specialty and executive manager have same distribution in terms of education years. The alternative hypothesis is that *Ha: F1(x) ≠ F2(x)*, that these two groups of people with different occupation have different distributions of education years.
 
 However, WRS requires some assumptions, and the successful implementation of WRS depends on whether or not these assumptions are met. Firstly, the population distribution needs to depend on location and scale parameters. Secondly, the distribution is continuous. Thirdly, it has identical population distributions. Fourthly, it requires equal variances among groups. The first three assumptions are met here. In order to apply the WRS, we need to test the equal variances.
@@ -95,12 +97,17 @@ Here we need to use the RMD to test for the deviances. We do not know the normal
 The null hypothesis for RMD Test will be: *H0: σ1 = σ2*. It means that the professional speciality and executive manager have the equal variances in education number. The alternative hypothesis for RMD Test will be: *Ha: max(σ1, σ2) / min(σ1, σ2) > 1*. This is a two-sided RMD Test and we will use it to test if the variances for two treatments are different.
 
 ###Working Hours and Work Class
+####Motivation
 We are interested in knowing if working hours per week differs among working classes. Since we have more than two treatments and we want to know if there is difference among these three treatments, we will use a Kruskal-Wallis test to test if at least one work class has different working hours than other classes.
 
+####Methodology and Assumptions
 Kruskal-Wallis Test is a nonparametric rank test that compares k treatments by replacing the original observations with ranks and performs the permutation F-test on those ranks. For large samples, KW test statistic follows chi-square distribution approximately with (k-1) degrees of freedom. Before applying Kruskal-Wallis test, we also need to check the Kruskal-Wallis test does require the assumption for homoscedasticity, which we have already checked using the boxplot in the summary statistics. The null hypothesis is that there is no difference in working hours among private, incorporated self-employment, and unincorporated self-employment working class. The alternative hypothesis is that at least one of the working classes has a different working hour from the others.
 
 ###Working Hours and Education
-We anticipate that higher education lead to more working hours. We suspect that a higher education level will lead to better jobs, and better jobs will likely require more working hours. In this situation, we assume that people with bachelor degrees have longer working hours than those with some college degree than those with bachelor degree. We decide to use Jonchheere-Terpstra Test to test for an increasing trend. Under null hypothesis, the three different population distributions are the same. Therefore, we use a boxplot to check for equal variance cross these three groups before applying Jonchheere-Terpstra Test. 
+####Motivation
+We anticipate that higher education leads to more working hours. We suspect that a higher education level will lead to better jobs, and better jobs will likely require more working hours. In this situation, we assume that people with bachelor degrees have longer working hours than those with some college degree than those with bachelor degree. 
+####Methodology and Assumptions
+We decide to use Jonchheere-Terpstra Test to test for an increasing trend. Under null hypothesis, the three different population distributions are the same. Therefore, we use a boxplot to check for equal variance cross these three groups before applying Jonchheere-Terpstra Test. 
 
 *H0 : F1(x) = F2(x) = F3(x)*
 Our null hypothesis is that population distribution are the same for people with graduate education (HS-grad), some-college and bachelor degree. 
@@ -109,6 +116,7 @@ Our null hypothesis is that population distribution are the same for people with
 Alternative hypothesis is that working hours increase with education levels.
 
 ###Correlation between Gender and Occupation
+####Motivation
 Besides the relationship between education and occupation, we are also interested in knowing if gender plays a factor in determining the types of occupation a person of the 70-year-old generation chooses. For this question, we hope to determine if there exists a correlation between the gender of a person and the occupation he or she chooses. The jobs for the age group of people fall into thirteen categories, and observations for the gender only include “Male” and “Female,” another categorical variable. The contingency table is shown below.
 
 |  | Male|Female|
@@ -127,12 +135,14 @@ Besides the relationship between education and occupation, we are also intereste
 |Technical Support|2|0|
 |Transport-moving|1|0|
 
-
+####Methodology and Assumptions
 To determine if an association between two categorical variables exists, a chi-square test should be used, and in our case we should be employing a permutation chi-square test, because of a violation of one of the two assumptions. A traditional chi-square test requires two assumptions: the independence assumption, that the observations are not dependent, and the sample size assumption, that most of the expected cell counts should be at least 5. The observations in our data violate the second assumption, as more than half of the cell counts are less than 5. Hence we will be using permutation chi-square test, an alternative method that solves the problem by creating a permutation distribution of the X2 statistic. In our case, we will permute the data 1000 times. The p-value of this test is the fraction of the number of test statistics greater than the original chi-square test statistic over the number of all test statistics from our permutation (note that the chi-square test is always an one-tailed test). The null hypothesis is that there is no association between gender and occupation among the surveyees, and the alternative hypothesis is that there exists a correlation between gender and occupation among the 70 year olds.
 
-###The Effect of Education and Capital Gains on the Hours per Week for Working 
-
-We plan to use the regression to address this problem. Regressions are used when we want to find the scale effect of how variables can affect a dependent variable. In this case, we hope to see answers to two basic questions: (1) if people with higher education tend to work shorter and (2) if people with extra capital gains tend to affect their decisions of how long to work. 
+###The Effect of Education and Capital Gains on the Hours per Week of Working 
+####Motivation
+We are interested in knowing if education and capital gains have effect on hours per week of working. We plan to use the regression to address this problem. Regressions are used when we want to find the scale effect of how variables can affect a dependent variable. 
+####Methodology and Assumptions
+In this case, we hope to see answers to two basic questions: (1) if people with higher education tend to work shorter and (2) if people with extra capital gains tend to affect their decisions of how long to work. 
 
 To be more specific, we plan to use the Bootstrapping Regression Method to address the problem. Bootstrapping is a nonparametric approach to statistical inference that substitutes computation for more traditional distributional assumptions and asymptotic results. As the simple multiple linear regression requires normal distribution for the data, we can not simply apply that to our analysis as the variables HoursPerWeek, EducationNum and CapitalGain are all skewed and not normally distributed due to our small data size and the nature of those data. The bootstrap can provide more accurate inferences when the data are not well behaved or when the sample size is small. It is also possible to apply the bootstrap to statistics with sampling distributions that are difficult to derive, even asymptotically.  Further, the bootstrap regression will provide us with a narrower confidence interval. 
 
