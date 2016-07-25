@@ -1,8 +1,22 @@
-# Nonparametric Project
+# Nonparametric Projects
+
+This folder contains 9 nonparametrics projects/labs.
+
+* Lab 1 - The Binomial Test
+* Lab 2 - Two-sample Permutation Test
+* Lab 3 - Wilcoxon Rank-Sum Test
+* Lab 4 - N/A
+* Lab 5 - ANOVA and Permutation F-test
+* Lab 6 - Kruskal-Wallis Test
+* Lab 7 - Multiple Comparisons and Bonferroni Correction
+* Lab 8 - Permutation Chi-square Test
+* Lab 9 - Introduction to Bootstrap
+* Lab 10 - Bootstrap for Regression
+* Project - Combination of Methods Above
 
 ##Background
 
-A Machine Learning java project predicting people's annual income with the *same dataset* can be found here: [MachineLearning-NaiveBayesClassifier](https://github.com/ss2cp/MachineLearning-NaiveBayesClassifier)
+\**A Machine Learning java project predicting people's annual income with the* **same dataset** *can be found here:* [MachineLearning-NaiveBayesClassifier](https://github.com/ss2cp/MachineLearning-NaiveBayesClassifier)
 
 This project is to study the influence of education level on occupation on people of age 70.
 
