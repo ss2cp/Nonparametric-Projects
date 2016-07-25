@@ -2,7 +2,7 @@
 
 ##Background
 
-**Another one of my Machine Learning projects predicting people's annual income using Java also applies the same dataset can be found here:* [MachineLearning-NaiveBayesClassifier](https://github.com/ss2cp/MachineLearning-NaiveBayesClassifier)
+**A Machine Learning java project predicting people's annual income applies the same dataset can be found here:* [MachineLearning-NaiveBayesClassifier](https://github.com/ss2cp/MachineLearning-NaiveBayesClassifier)
 
 This project is to study the influence of education level on occupation on people of age 70.
 
