@@ -14,10 +14,10 @@ This project is to study the influence of education level on occupation on peopl
 * The AdultUCI data set contains a data frame with 48842 observations on the following 15 variables. 
 * It was originally used to predict whether income exceeds USD 50K/yr based on census data. 
 
-*We chose the group of age 70 as our main interest, because they were the group born around the Great Depression and influenced by the WWII when they entered the workforce, 
+We chose the group of age 70 as our main interest, because they were the group born around the Great Depression and influenced by the WWII when they entered the workforce, 
 two specific time periods that likely impacted the education and occupation of the subject group. 
 Our questions are mostly concerned with the relationship between education and occupation of this particular generation, 
-due to the special background of this group.*
+due to the special background of this group.
 
 **Goal:** To study the influence of education level on occupation on people of age 70.
 
