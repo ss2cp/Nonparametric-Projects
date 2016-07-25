@@ -1,6 +1,4 @@
-# Nonparametric Projects
-
-This folder contains 9 nonparametrics projects/labs.
+*This folder contains 9 nonparametrics projects/labs:*
 
 * Lab 1 - The Binomial Test
 * Lab 2 - Two-sample Permutation Test
@@ -13,6 +11,8 @@ This folder contains 9 nonparametrics projects/labs.
 * Lab 9 - Introduction to Bootstrap
 * Lab 10 - Bootstrap for Regression
 * Project - Combination of Methods Above
+
+# Nonparametric Project
 
 ##Background
 
