@@ -10,7 +10,9 @@
 * Lab 8 - Permutation Chi-square Test
 * Lab 9 - Introduction to Bootstrap
 * Lab 10 - Bootstrap for Regression
-* Project - Combination of Methods Above
+* Project - Combination of Methods Above 
+
+*The following is a brief intro of the project.*
 
 # Nonparametric Project
 
